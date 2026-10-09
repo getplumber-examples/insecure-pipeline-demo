@@ -46,4 +46,13 @@ describe('API', () => {
     const res = await createApp().request('/api/greetings', { method: 'POST' })
     expect(res.status).toBe(400)
   })
+
+  it('GET /api/status reports version and stored count', async () => {
+    const res = await createApp({ version: 'abc1234' }).request('/api/status')
+    expect(res.status).toBe(200)
+    const body = (await res.json()) as { version: string; stored: number; startedAt: string }
+    expect(body.version).toBe('abc1234')
+    expect(body.stored).toBe(0)
+    expect(typeof body.startedAt).toBe('string')
+  })
 })
