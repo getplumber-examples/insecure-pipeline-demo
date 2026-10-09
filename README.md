@@ -107,3 +107,7 @@ npm run test         # runs the full suite: 19 API + 4 web tests, all green
 ## License
 
 [MIT](./LICENSE). An educational security fixture, provided with no warranty.
+
+## Authors
+
+Maintained by the Plumber team.
