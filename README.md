@@ -84,7 +84,7 @@ Requires Node 22 (see `.nvmrc`).
 ```bash
 npm ci
 npm run dev          # API on :3000, interface on :5173
-npm run test         # 19 API + 4 web tests, all green
+npm run test         # runs the full suite: 19 API + 4 web tests, all green
 ```
 
 ## License
