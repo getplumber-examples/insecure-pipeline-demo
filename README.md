@@ -104,6 +104,9 @@ npm run dev          # API on :3000, interface on :5173
 npm run test         # runs the full suite: 19 API + 4 web tests, all green
 ```
 
+To check a deployed instance, run `npm run smoke -- https://hello-pipeline-staging.fly.dev`
+(defaults to `http://localhost:3000`).
+
 ## License
 
 [MIT](./LICENSE). An educational security fixture, provided with no warranty.
