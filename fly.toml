@@ -1,0 +1,23 @@
+# Fly.io configuration, shared by both environments.
+# The app name is passed at deploy time:
+#   staging:    flyctl deploy --app hello-pipeline-staging --image <image>
+#   production: flyctl deploy --app hello-pipeline --image <image>
+primary_region = "sjc"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/healthz"
+    interval = "15s"
+    timeout = "5s"
+    grace_period = "10s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
