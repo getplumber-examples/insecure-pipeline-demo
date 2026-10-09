@@ -110,4 +110,4 @@ npm run test         # runs the full suite: 19 API + 4 web tests, all green
 
 ## Authors
 
-Maintained by the Plumber team.
+Maintained by the [Plumber](https://getplumber.io) team.
