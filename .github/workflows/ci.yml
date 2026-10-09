@@ -37,7 +37,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, image]
     if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/deploy.yml
     env:
       MY_TOKEN: ${{ secrets.MY_TOKEN }}
     steps:
