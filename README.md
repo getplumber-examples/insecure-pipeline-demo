@@ -104,6 +104,11 @@ npm run dev          # API on :3000, interface on :5173
 npm run test         # runs the full suite: 19 API + 4 web tests, all green
 ```
 
+## Contributing
+
+Issues and pull requests are welcome. Please run `npm run lint`, `npm run typecheck`
+and `npm run test` before opening a PR.
+
 ## License
 
 [MIT](./LICENSE). An educational security fixture, provided with no warranty.
