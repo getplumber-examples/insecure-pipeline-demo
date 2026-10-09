@@ -16,9 +16,11 @@ only so the pipeline has something plausible to build, test, and ship.
 
 - [The story this repo tells](#the-story-this-repo-tells)
 - [What Plumber finds in the pipeline](#what-plumber-finds-in-the-pipeline)
+- [Tech stack](#tech-stack)
 - [Application layout](#application-layout)
 - [Development](#development)
 - [License](#license)
+- [Authors](#authors)
 
 ## The story this repo tells
 
