@@ -1,10 +1,11 @@
 # Plumber configuration for this demo repository.
 #
 # Overlay on top of the shipped defaults: every control keeps its default,
-# and we tighten exactly one thing. We do NOT trust an action just because it
-# lives under our own GitHub org. A demo repo and its "dependency" share the
-# `getplumber-examples` org, and that shared-org trust is exactly how a
-# malicious same-org action gets waved through. Make them prove themselves.
+# and we tighten two things. We do NOT trust an action just because of who
+# owns it. A demo repo and its "dependency" share the `getplumber-examples`
+# org, and that shared-org trust is exactly how a malicious same-org action
+# gets waved through. The same goes for pinning: `actions/*` is not exempt
+# from the commit-SHA rule here, a tag is a tag. Make them prove themselves.
 extends: plumber:default
 github:
   controls:
@@ -12,3 +13,6 @@ github:
       enabled: true
       trustSameOrgActions: false
       minimumStars: 0
+    actionsMustBePinnedByCommitSha:
+      enabled: true
+      trustedOwners: []

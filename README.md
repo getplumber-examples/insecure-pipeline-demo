@@ -1,5 +1,8 @@
 # insecure-pipeline-demo
 
+[![Plumber Score](https://score.getplumber.io/github.com/getplumber-examples/insecure-pipeline-demo.svg)](https://score.getplumber.io/github.com/getplumber-examples/insecure-pipeline-demo)
+[![Plumber](https://github.com/getplumber-examples/insecure-pipeline-demo/actions/workflows/plumber.yml/badge.svg?branch=main)](https://github.com/getplumber-examples/insecure-pipeline-demo/actions/workflows/plumber.yml)
+
 > ⚠️ **TRAINING FIXTURE — INTENTIONALLY INSECURE PIPELINE.**
 > The application code is an ordinary small TypeScript API. The CI/CD workflow
 > in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) is **deliberately
@@ -24,16 +27,19 @@ repository's secrets.
 
 ## What Plumber finds in the pipeline
 
-Running `plumber analyze --score` from the repo root reports these findings (see
-`.github/workflows/ci.yml`) and a Plumber Score of 38 / 100 (D). The exact codes
+Running `plumber analyze --score` from the repo root reports these findings
+(see [`.github/workflows/`](.github/workflows/)) and a Plumber Score of
+3 / 100 (E): one Critical attack path, three High, two Medium. The exact codes
 and severities are confirmed in
 [`docs/EXPECTED-FINDINGS.md`](docs/EXPECTED-FINDINGS.md).
 
 | Code | Pattern | Why it matters |
 | --- | --- | --- |
+| `ISSUE-804` | `preview.yml` runs on `pull_request_target` and checks out the PR head | A fork's `package.json` scripts run with the repo's secrets and a write token: the classic "pwn request" |
 | `ISSUE-207` | The pull request title is interpolated straight into a `run:` script | Anyone who can open a PR gets code execution on the runner (script injection) |
 | `ISSUE-209` | The PR branch name is written into `$GITHUB_ENV` | Attacker-controlled content becomes environment for every later step |
-| `ISSUE-701` | Third-party action pinned by a mutable tag (`@v1`), not a commit SHA | The exact tj-actions supply-chain vector: the tag can be swapped for a malicious build |
+| `ISSUE-701` | Every action is pinned by a mutable tag (`@v1`, `@v4`), not a commit SHA | The exact tj-actions supply-chain vector: the tag can be swapped for a malicious build |
+| `ISSUE-713` | `totally-fine-action` is not an authorized source | `.plumber.yaml` refuses to trust an action just for sharing our GitHub org |
 | `ISSUE-309` | The whole secrets context is exported into the environment | Every secret is handed to every step, including the compromised action |
 | `ISSUE-302` | A reusable workflow is called with `secrets: inherit` | Secrets flow to code the caller never reviews |
 | `ISSUE-803` | A job runs with `permissions: write-all` | A compromised step can rewrite the repo, releases, and packages |
@@ -43,6 +49,13 @@ and severities are confirmed in
 
 The compromised action itself lives in the companion repo
 [`totally-fine-action`](https://github.com/getplumber-examples/totally-fine-action).
+
+The badge at the top of this page is live: the
+[`plumber.yml`](.github/workflows/plumber.yml) workflow runs Plumber on every
+push and pull request and publishes the `main` score to
+[score.getplumber.io](https://score.getplumber.io/github.com/getplumber-examples/insecure-pipeline-demo)
+over CI OIDC, no secret involved. It runs with `soft-fail` so the pipeline
+stays green while the badge says E, which is the whole point of the demo.
 
 ## Application layout
 
