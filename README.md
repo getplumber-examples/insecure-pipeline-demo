@@ -79,7 +79,7 @@ fly.toml      Fly.io config for staging and production
 
 ## Development
 
-Requires Node 22 (see `.nvmrc`).
+Requires Node 22 (see `.nvmrc`). With [nvm](https://github.com/nvm-sh/nvm) installed, run `nvm use` to switch to the pinned version.
 
 ```bash
 npm ci
