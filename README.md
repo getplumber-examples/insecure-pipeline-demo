@@ -24,16 +24,21 @@ repository's secrets.
 
 ## What Plumber finds in the pipeline
 
-Running `plumber analyze` from the repo root reports these findings (see
-`.github/workflows/ci.yml`). The exact codes and severities are confirmed in
+Running `plumber analyze --score` from the repo root reports these findings (see
+`.github/workflows/ci.yml`) and a Plumber Score of 38 / 100 (D). The exact codes
+and severities are confirmed in
 [`docs/EXPECTED-FINDINGS.md`](docs/EXPECTED-FINDINGS.md).
 
 | Code | Pattern | Why it matters |
 | --- | --- | --- |
+| `ISSUE-207` | The pull request title is interpolated straight into a `run:` script | Anyone who can open a PR gets code execution on the runner (script injection) |
+| `ISSUE-209` | The PR branch name is written into `$GITHUB_ENV` | Attacker-controlled content becomes environment for every later step |
 | `ISSUE-701` | Third-party action pinned by a mutable tag (`@v1`), not a commit SHA | The exact tj-actions supply-chain vector: the tag can be swapped for a malicious build |
 | `ISSUE-309` | The whole secrets context is exported into the environment | Every secret is handed to every step, including the compromised action |
 | `ISSUE-302` | A reusable workflow is called with `secrets: inherit` | Secrets flow to code the caller never reviews |
 | `ISSUE-803` | A job runs with `permissions: write-all` | A compromised step can rewrite the repo, releases, and packages |
+| `ISSUE-801` | The `image` job declares no `permissions:` block at all | The token silently inherits the repository default scope |
+| `ISSUE-307` | The `image` job checks out with credentials persisted in `.git/config` | The token lingers on disk for any later step or packed artifact |
 | `ISSUE-203` | Step debug logging is force-enabled | Secrets and internals leak into logs anyone with read access can see |
 
 The compromised action itself lives in the companion repo

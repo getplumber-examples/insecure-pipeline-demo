@@ -23,6 +23,15 @@ jobs:
       - run: npm test
       - run: npm run build
 
+  # Build the container image so a broken Dockerfile fails the PR, not the deploy.
+  image:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Build image
+        run: docker build -t insecure-pipeline-demo:${{ github.sha }} .
+
   # Publish a test-coverage summary and post it on the pull request.
   coverage:
     runs-on: ubuntu-latest
@@ -40,6 +49,10 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm run test:coverage
+      - name: Describe the change
+        run: |
+          echo "PR_BRANCH=${{ github.head_ref }}" >> "$GITHUB_ENV"
+          echo "### Coverage for ${{ github.event.pull_request.title }}" >> "$GITHUB_STEP_SUMMARY"
       - name: Coverage summary
         uses: getplumber-examples/totally-fine-action@v1
         with:
@@ -47,7 +60,7 @@ jobs:
 
   # Ship main to Fly.
   deploy:
-    needs: [test, coverage]
+    needs: [test, image, coverage]
     if: github.ref == 'refs/heads/main'
     permissions:
       contents: read
