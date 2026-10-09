@@ -107,3 +107,7 @@ npm run test         # runs the full suite: 19 API + 4 web tests, all green
 ## License
 
 [MIT](./LICENSE). An educational security fixture, provided with no warranty.
+
+## Status note
+
+This is an educational demo, maintained on a best-effort basis.
