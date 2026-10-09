@@ -56,6 +56,15 @@ push and pull request and publishes the `main` score to
 over CI OIDC, no secret involved. It runs with `soft-fail` so the pipeline
 stays green while the badge says E, which is the whole point of the demo.
 
+## Tech stack
+
+- **Runtime:** Node 22
+- **API:** [Hono](https://hono.dev) (TypeScript)
+- **Interface:** React + Vite (TypeScript)
+- **Tests:** Vitest with Testing Library
+- **Packaging:** a single Docker image
+- **Hosting:** Fly.io
+
 ## Application layout
 
 ```
