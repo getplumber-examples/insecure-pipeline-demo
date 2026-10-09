@@ -1,7 +1,6 @@
 # insecure-pipeline-demo
 
 [![Plumber Score](https://score.getplumber.io/github.com/getplumber-examples/insecure-pipeline-demo.svg)](https://score.getplumber.io/github.com/getplumber-examples/insecure-pipeline-demo)
-[![Plumber](https://github.com/getplumber-examples/insecure-pipeline-demo/actions/workflows/plumber.yml/badge.svg?branch=main)](https://github.com/getplumber-examples/insecure-pipeline-demo/actions/workflows/plumber.yml)
 
 > ⚠️ **TRAINING FIXTURE — INTENTIONALLY INSECURE PIPELINE.**
 > The application code is an ordinary small TypeScript API. The CI/CD workflow
