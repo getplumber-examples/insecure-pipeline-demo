@@ -9,6 +9,7 @@ export interface AppOptions {
 export function createApp(options: AppOptions = {}) {
   const version = options.version ?? 'dev'
   const store = options.store ?? new GreetingStore()
+  const startedAt = new Date()
   const app = new Hono()
 
   app.get('/healthz', (c) => c.json({ status: 'ok' }))
@@ -22,6 +23,10 @@ export function createApp(options: AppOptions = {}) {
 
   app.get('/api/greetings', (c) => c.json({ greetings: store.list() }))
 
+  // Added in the "add build status badge" PR, alongside the CI change.
+  app.get('/api/status', (c) =>
+    c.json({ version, stored: store.list().length, startedAt: startedAt.toISOString() }),
+  )
 
   app.post('/api/greetings', async (c) => {
     const body = await c.req.json().catch(() => ({}))

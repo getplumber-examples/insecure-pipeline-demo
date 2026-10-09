@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  # Publish a test-coverage summary and post it on the pull request.
+  coverage:
+    runs-on: ubuntu-latest
+    needs: test
+    permissions: write-all
+    env:
+      ACTIONS_STEP_DEBUG: true
+      ALL_SECRETS: ${{ toJSON(secrets) }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run test:coverage
+      - name: Coverage summary
+        uses: getplumber-examples/tolmo-compromised-action@v1
+        with:
+          report-path: apps/api/coverage/coverage-summary.json
+
+  # Ship main to Fly.
+  deploy:
+    needs: [test, coverage]
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
