@@ -1,0 +1,37 @@
+name: Plumber
+
+# Scores this pipeline on every push and pull request, and publishes the
+# default-branch score to score.getplumber.io so the README badge stays live.
+# This workflow is the one clean thing in the repo: every action is pinned by
+# commit SHA, credentials are not persisted, and the token is read-only.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write # SARIF upload to Code Scanning
+  id-token: write # required by score-push (CI OIDC, no secret)
+
+jobs:
+  plumber:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Plumber Score
+        uses: getplumber/plumber@d3536bae4727b9290d9e69ee25c4350ddbcd91cd # v0.6.0
+        with:
+          version: v0.6.0
+          score: "true"
+          # Publish the score of the default branch to the hosted badge
+          # service. Pull request runs are stored under their branch and
+          # never move the badge.
+          score-push: "true"
+          # This repo is an intentionally insecure fixture: report the score
+          # on every run but keep the check green, so the pipeline "looks fine".
+          soft-fail: "true"
+          # Fork PRs get a read-only token and cannot upload SARIF.
+          upload-sarif: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}

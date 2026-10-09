@@ -1,0 +1,28 @@
+name: PR preview
+
+# Deploy a preview of every pull request, including ones from forks, so
+# reviewers can click around before merging.
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build
+      - name: Deploy preview
+        run: echo "would run flyctl deploy --app insecure-pipeline-demo-pr-${{ github.event.number }} here"
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
