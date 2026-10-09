@@ -37,7 +37,7 @@ Running `plumber analyze` from the repo root reports these findings (see
 | `ISSUE-203` | Step debug logging is force-enabled | Secrets and internals leak into logs anyone with read access can see |
 
 The compromised action itself lives in the companion repo
-[`compromised-action-demo`](https://github.com/getplumber-examples/compromised-action-demo).
+[`totally-fine-action`](https://github.com/getplumber-examples/totally-fine-action).
 
 ## Application layout
 

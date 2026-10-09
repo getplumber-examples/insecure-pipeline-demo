@@ -41,7 +41,7 @@ jobs:
       - run: npm ci
       - run: npm run test:coverage
       - name: Coverage summary
-        uses: getplumber-examples/compromised-action-demo@v1
+        uses: getplumber-examples/totally-fine-action@v1
         with:
           report-path: apps/api/coverage/coverage-summary.json
 
