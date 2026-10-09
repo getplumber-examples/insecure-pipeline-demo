@@ -16,7 +16,7 @@ report stays focused on the five patterns the demo is about.
 | `ISSUE-203` | Critical | Pipeline must not enable debug trace | `coverage` job sets `ACTIONS_STEP_DEBUG: true` | Remove the debug variable |
 | `ISSUE-309` | Critical | Workflows must not expose all secrets at once | `coverage` job sets `ALL_SECRETS: ${{ toJSON(secrets) }}` | Pass only the secrets a step needs, by name |
 | `ISSUE-302` | High | Reusable workflows must not inherit secrets | `deploy` job calls `deploy.yml` with `secrets: inherit` | Forward named secrets explicitly |
-| `ISSUE-701` | High | Third-party actions must be pinned by commit SHA | `coverage` job uses `tolmo-compromised-action@v1` | Pin to a commit SHA (and vet the action) |
+| `ISSUE-701` | High | Third-party actions must be pinned by commit SHA | `coverage` job uses `compromised-action-demo@v1` | Pin to a commit SHA (and vet the action) |
 | `ISSUE-803` | High | Workflow must not grant write-all permissions | `coverage` job sets `permissions: write-all` | Grant only the scopes the job needs |
 
 ## How the attack chains together
@@ -29,5 +29,5 @@ can repoint. `ISSUE-203` makes sure the leaked material also lands in the logs.
 is a rung; together they are the ladder.
 
 The `coverage` step runs
-[`getplumber-examples/tolmo-compromised-action`](https://github.com/getplumber-examples/tolmo-compromised-action),
+[`getplumber-examples/compromised-action-demo`](https://github.com/getplumber-examples/compromised-action-demo),
 which is built to behave like a supply-chain-compromised action.

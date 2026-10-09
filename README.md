@@ -1,4 +1,4 @@
-# tolmo-victim-api
+# insecure-pipeline-demo
 
 > ⚠️ **TRAINING FIXTURE — INTENTIONALLY INSECURE PIPELINE.**
 > The application code is an ordinary small TypeScript API. The CI/CD workflow
@@ -37,7 +37,7 @@ Running `plumber analyze` from the repo root reports these findings (see
 | `ISSUE-203` | Step debug logging is force-enabled | Secrets and internals leak into logs anyone with read access can see |
 
 The compromised action itself lives in the companion repo
-[`tolmo-compromised-action`](https://github.com/getplumber-examples/tolmo-compromised-action).
+[`compromised-action-demo`](https://github.com/getplumber-examples/compromised-action-demo).
 
 ## Application layout
 
