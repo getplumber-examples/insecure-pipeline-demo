@@ -1,6 +1,6 @@
 # insecure-pipeline-demo
 
-[![Plumber Score](https://score.getplumber.io/github.com/getplumber-examples/insecure-pipeline-demo.svg)](https://score.getplumber.io/github.com/getplumber-examples/insecure-pipeline-demo) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Plumber Score](https://score.getplumber.io/github.com/getplumber-examples/insecure-pipeline-demo.svg)](https://score.getplumber.io/github.com/getplumber-examples/insecure-pipeline-demo) [![Node 22](https://img.shields.io/badge/node-22-339933?logo=node.js&logoColor=white)](.nvmrc) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 > ⚠️ **TRAINING FIXTURE — INTENTIONALLY INSECURE PIPELINE.**
 > The application code is an ordinary small TypeScript API. The CI/CD workflow
