@@ -87,6 +87,13 @@ Dockerfile    one image: the API serves the built interface
 fly.toml      Fly.io config for staging and production
 ```
 
+Build and run the image locally:
+
+```bash
+docker build -t hello-pipeline .
+docker run --rm -p 3000:3000 hello-pipeline
+```
+
 | Endpoint | What it does |
 | --- | --- |
 | `GET /healthz` | Liveness check |
