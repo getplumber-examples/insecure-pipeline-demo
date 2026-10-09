@@ -12,6 +12,14 @@ A small greetings service: a [Hono](https://hono.dev) API on Node 22 and a React
 interface, shipped as one Docker image and deployed to Fly.io. The app is here
 only so the pipeline has something plausible to build, test, and ship.
 
+## Contents
+
+- [The story this repo tells](#the-story-this-repo-tells)
+- [What Plumber finds in the pipeline](#what-plumber-finds-in-the-pipeline)
+- [Application layout](#application-layout)
+- [Development](#development)
+- [License](#license)
+
 ## The story this repo tells
 
 Someone asked an AI agent for a small feature ("add a build-status endpoint").
