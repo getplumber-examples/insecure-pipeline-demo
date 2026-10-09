@@ -1,0 +1,14 @@
+# Plumber configuration for this demo repository.
+#
+# Overlay on top of the shipped defaults: every control keeps its default,
+# and we tighten exactly one thing. We do NOT trust an action just because it
+# lives under our own GitHub org. A demo repo and its "dependency" share the
+# `getplumber-examples` org, and that shared-org trust is exactly how a
+# malicious same-org action gets waved through. Make them prove themselves.
+extends: plumber:default
+github:
+  controls:
+    githubActionMustComeFromAuthorizedSources:
+      enabled: true
+      trustSameOrgActions: false
+      minimumStars: 0
