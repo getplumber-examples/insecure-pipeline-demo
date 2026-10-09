@@ -104,6 +104,15 @@ npm run dev          # API on :3000, interface on :5173
 npm run test         # runs the full suite: 19 API + 4 web tests, all green
 ```
 
+### Other scripts
+
+| Command | What it does |
+| --- | --- |
+| `npm run lint` | ESLint over the whole repo |
+| `npm run format` | Prettier, writes changes |
+| `npm run typecheck` | TypeScript type check for every workspace |
+| `npm run build` | Builds the API and the interface |
+
 ## License
 
 [MIT](./LICENSE). An educational security fixture, provided with no warranty.
